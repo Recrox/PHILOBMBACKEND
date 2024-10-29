@@ -262,7 +262,7 @@ public class InvoiceService : BaseContextService<Invoice>, IInvoiceService
         document.Close();
     }
 
-    public async Task<IEnumerable<Invoice>> GetInvoicesForClientAsync(int selectedClientId)
+    public async Task<IEnumerable<Invoice>> GetInvoicesByClientIdAsync(int selectedClientId)
     {
         var invoices = await _context.Invoices
             .Include(invoice => invoice.Client) // Inclut les détails du client si nécessaire
