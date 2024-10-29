@@ -30,13 +30,16 @@ public abstract class BaseContextService<T> : IBaseContextService<T> where T : B
         await _context.SaveChangesAsync();
     }
 
-    public async Task DeleteAsync(int id)
+    public async Task<bool> DeleteAsync(int id)
     {
         var entity = await _context.Set<T>().FindAsync(id);
         if (entity != null)
         {
             _context.Set<T>().Remove(entity);
             await _context.SaveChangesAsync();
+            return true; // Renvoie vrai si la suppression a réussi
         }
+        return false; // Renvoie faux si l'entité n'existe pas
     }
+
 }

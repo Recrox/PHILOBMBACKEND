@@ -53,9 +53,18 @@ namespace PHILOBMBAPI.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(int id)
         {
-            await _service.DeleteAsync(id);
-            return NoContent(); // 204 No Content
+            bool deleted = await _service.DeleteAsync(id);
+
+            if (deleted)
+            {
+                return NoContent(); // 204 No Content
+            }
+            else
+            {
+                return NotFound(); // 404 Not Found si l'entité n'existe pas
+            }
         }
+
 
         protected ActionResult<T> HandleResult(T result, string notFoundMessage = null)
         {

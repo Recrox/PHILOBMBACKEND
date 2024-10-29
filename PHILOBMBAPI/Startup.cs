@@ -9,6 +9,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
+using Swashbuckle.AspNetCore.SwaggerUI;
+using PHILOBMCore.Models;
 
 public class Startup
 {
@@ -30,6 +32,14 @@ public class Startup
     // Configure les services ici
     public void ConfigureServices(IServiceCollection services)
     {
+        services.AddCors(options =>
+        {
+            options.AddPolicy("AllowAllOrigins",
+                builder => builder.AllowAnyOrigin()
+                                  .AllowAnyMethod()
+                                  .AllowAnyHeader());
+        });
+
         services.AddControllers();
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen();
@@ -75,11 +85,19 @@ public class Startup
     {
         if (env.IsDevelopment())
         {
+            app.UseDeveloperExceptionPage();
             app.UseSwagger();
-            app.UseSwaggerUI();
+            app.UseSwaggerUI(c =>
+            {
+                //c.SwaggerEndpoint("/swagger/v1/swagger.json", "Your API V1");
+                //c.RoutePrefix = string.Empty; // Pour afficher Swagger à la racine
+                c.DocExpansion(DocExpansion.None);
+            });
         }
 
+        app.UseCors("AllowAllOrigins");
         app.UseHttpsRedirection();
+        app.UseRouting();
         app.UseAuthorization();
         app.MapControllers();
     }
