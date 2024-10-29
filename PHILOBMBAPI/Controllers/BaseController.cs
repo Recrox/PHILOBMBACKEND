@@ -66,7 +66,7 @@ namespace PHILOBMBAPI.Controllers
         }
 
 
-        protected ActionResult<T> HandleResult(T result, string notFoundMessage = null)
+        protected ActionResult<T> HandleResult(T? result, string? notFoundMessage = null)
         {
             if (result == null)
             {
@@ -75,7 +75,7 @@ namespace PHILOBMBAPI.Controllers
             return Ok(result);
         }
 
-        protected ActionResult<IEnumerable<T>> HandleResult(ICollection<T> result, string notFoundMessage = null)
+        protected ActionResult<IEnumerable<T>> HandleResult(ICollection<T> result, string? notFoundMessage = null)
         {
             if (result == null || !result.Any())
             {
