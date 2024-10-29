@@ -1,0 +1,6 @@
+@PHILOBMBACKEND_HostAddress = http://localhost:5110
+
+GET {{PHILOBMBACKEND_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

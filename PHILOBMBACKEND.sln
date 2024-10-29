@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35327.3
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PHILOBMCore", "PHILOBMCORE\PHILOBMCore.csproj", "{DA3CCD74-9AE9-4677-BBD8-58EF1DF52396}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PHILOBMBAPI", "PHILOBMBAPI\PHILOBMBAPI.csproj", "{9F787510-CA7F-4CB4-80A8-3C165EDA8109}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DA3CCD74-9AE9-4677-BBD8-58EF1DF52396}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA3CCD74-9AE9-4677-BBD8-58EF1DF52396}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA3CCD74-9AE9-4677-BBD8-58EF1DF52396}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA3CCD74-9AE9-4677-BBD8-58EF1DF52396}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9F787510-CA7F-4CB4-80A8-3C165EDA8109}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9F787510-CA7F-4CB4-80A8-3C165EDA8109}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9F787510-CA7F-4CB4-80A8-3C165EDA8109}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9F787510-CA7F-4CB4-80A8-3C165EDA8109}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5960DB4A-4864-4FF7-ADBB-BC8A2CFDC096}
+	EndGlobalSection
+EndGlobal
