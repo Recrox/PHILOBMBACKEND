@@ -55,6 +55,28 @@ public class Startup
         AddDbContextRelative(services);
     }
 
+    // Configure le pipeline HTTP ici
+    public void Configure(WebApplication app, IWebHostEnvironment env)
+    {
+        if (env.IsDevelopment())
+        {
+            app.UseDeveloperExceptionPage();
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                //c.SwaggerEndpoint("/swagger/v1/swagger.json", "Your API V1");
+                //c.RoutePrefix = string.Empty; // Pour afficher Swagger à la racine
+                c.DocExpansion(DocExpansion.None);
+            });
+        }
+
+        app.UseCors("AllowAllOrigins");
+        app.UseHttpsRedirection();
+        app.UseRouting();
+        app.UseAuthorization();
+        app.MapControllers();
+    }
+
     // Enregistrement des services spécifiques
     private void AddServices(IServiceCollection services)
     {
@@ -78,27 +100,5 @@ public class Startup
 
         services.AddDbContext<PhiloBMContext>(options =>
             options.UseSqlite($"Data Source={Constants.DbPath}"));
-    }
-
-    // Configure le pipeline HTTP ici
-    public void Configure(WebApplication app, IWebHostEnvironment env)
-    {
-        if (env.IsDevelopment())
-        {
-            app.UseDeveloperExceptionPage();
-            app.UseSwagger();
-            app.UseSwaggerUI(c =>
-            {
-                //c.SwaggerEndpoint("/swagger/v1/swagger.json", "Your API V1");
-                //c.RoutePrefix = string.Empty; // Pour afficher Swagger à la racine
-                c.DocExpansion(DocExpansion.None);
-            });
-        }
-
-        app.UseCors("AllowAllOrigins");
-        app.UseHttpsRedirection();
-        app.UseRouting();
-        app.UseAuthorization();
-        app.MapControllers();
     }
 }
