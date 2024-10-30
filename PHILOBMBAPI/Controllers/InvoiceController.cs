@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using PdfSharpCore.Pdf.Advanced;
 using PHILOBMCore.Models;
 using PHILOBMCore.Services.Interfaces;
 
@@ -14,11 +15,37 @@ namespace PHILOBMBAPI.Controllers;
             _invoiceService = invoiceService;
         }
 
-        //[HttpGet("{invoiceId}")]
-        //public async Task<ActionResult<IEnumerable<Invoice>>> GetInvoicesByClientIdAsync(int invoiceId)
-        //{
-        //    var invoice = await _invoiceService.GetInvoicesByClientIdAsync(invoiceId);
-        //    return HandleResult(invoice, "Facture non trouvée.");
-        //}
+    [HttpGet("pdf/{invoiceId}")]
+    public async Task<ActionResult<byte[]>> CreerPDFAsync(int invoiceId)
+    {
+        var fileContentPdf = await _invoiceService.CreerPDFAsync(invoiceId);
+        if (fileContentPdf == null) return this.NotFound();
+        return File(fileContentPdf.FileContents, fileContentPdf.ContentType, fileContentPdf.FileDownloadName);
     }
+
+    //[HttpGet("pdf/{invoiceId}")]
+    //public async Task<IActionResult> CreerPDFAsync(int invoiceId)
+    //{
+    //    var fileContentPdf = await _invoiceService.CreerPDFAsync(invoiceId);
+    //    if (fileContentPdf == null) return NotFound();
+
+    //    return Ok(fileContentPdf); // Retournez un objet JSON
+    //}
+
+    [HttpGet("mock")]
+        public async Task<ActionResult<List<Invoice>>> LoadMockInvoices()
+        {
+            var invoices =  _invoiceService.LoadMockInvoices();
+            if (invoices == null) return this.NotFound();
+            return this.Ok(invoices);
+        }
+
+
+    //[HttpGet("{invoiceId}")]
+    //public async Task<ActionResult<IEnumerable<Invoice>>> GetInvoicesByClientIdAsync(int invoiceId)
+    //{
+    //    var invoice = await _invoiceService.GetInvoicesByClientIdAsync(invoiceId);
+    //    return HandleResult(invoice, "Facture non trouvée.");
+    //}
+}
 

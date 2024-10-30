@@ -77,9 +77,9 @@ namespace PHILOBMBAPI.Controllers
 
         protected ActionResult<IEnumerable<T>> HandleResult(ICollection<T> result, string? notFoundMessage = null)
         {
-            if (result == null || !result.Any())
+            if (result == null)
             {
-                return NotFound(notFoundMessage ?? "Aucun élément trouvé.");
+                return NotFound(notFoundMessage ?? "Une erreur s'est produite lors de la récupération des éléments.");
             }
             return Ok(result);
         }

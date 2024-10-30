@@ -1,10 +1,12 @@
-﻿using PHILOBMCore.Models;
+﻿using Microsoft.AspNetCore.Mvc;
+using PHILOBMCore.Models;
 
 namespace PHILOBMCore.Services.Interfaces;
 
 public interface IInvoiceService : IBaseContextService<Invoice>
 {
-    void CreerPDF(Invoice invoice);
-    void CreerExcel(Invoice invoice);
+    Task<FileContentResult?> CreerPDFAsync(int invoiceId);
+    Task CreerExcelAsync(Invoice invoice);
     Task<IEnumerable<Invoice>> GetInvoicesByClientIdAsync(int selectedClientId);
+    List<Invoice> LoadMockInvoices();
 }

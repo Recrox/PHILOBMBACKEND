@@ -12,4 +12,5 @@ public static class Constants
     public static readonly string RacinePath = Path.Combine("C:", "PhiloBM");
     public static readonly string DbPath = Path.Combine(RacinePath, DBName); // Chemin complet vers la DB
 
+    public const string MimeTypePDF = "application/pdf";
 }

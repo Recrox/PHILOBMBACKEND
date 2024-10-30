@@ -4,13 +4,10 @@ using Serilog;
 using Serilog.Events;
 using PHILOBMCore.Database;
 using PHILOBMCore.ConstantsSettings;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Swashbuckle.AspNetCore.SwaggerUI;
-using PHILOBMCore.Models;
+using Microsoft.Extensions.Options;
+using Configuration;
 
 public class Startup
 {
@@ -91,6 +88,16 @@ public class Startup
         services.AddScoped<IClientService, ClientService>();
         services.AddScoped<ICarService, CarService>();
         services.AddScoped<IInvoiceService, InvoiceService>();
+
+        AddConfiguration(services);
+    }
+
+    private void AddConfiguration(IServiceCollection services)
+    {
+        services.Configure<ConfigurationSettings>(_configuration.GetSection("ConfigurationSettings"));
+
+        services.AddSingleton(sp =>
+            sp.GetRequiredService<IOptions<ConfigurationSettings>>().Value);
     }
 
     // Configurer le contexte de base de données avec SQLite
