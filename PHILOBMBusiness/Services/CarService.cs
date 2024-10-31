@@ -7,9 +7,9 @@ namespace PHILOBMBusiness.Services;
 public class CarService : BaseService<Car>, ICarService
 {
     private readonly ICarRepository _carRepository;
-    public CarService(ICarRepository carRepository) : base(carRepository)
+    public CarService(ICarRepository carRepository) : base((IBaseRepository<Car>)carRepository)
     {
-
+        _carRepository = carRepository;
     }
 
     public async Task<ICollection<Car>> GetAllCarsByClientIdAsync(int clientId)

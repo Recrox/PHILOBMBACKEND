@@ -16,7 +16,7 @@ public class InvoiceService : BaseService<Invoice>, IInvoiceService
 {
     private readonly IInvoiceRepository _invoiceRepository;
 
-    public InvoiceService(IInvoiceRepository invoiceRepository) : base(invoiceRepository)
+    public InvoiceService(IInvoiceRepository invoiceRepository) : base((IBaseRepository<Invoice>)invoiceRepository)
     {
         this._invoiceRepository = invoiceRepository;
     }

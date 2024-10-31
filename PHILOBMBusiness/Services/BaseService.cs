@@ -1,9 +1,10 @@
-﻿using PHILOBMCore.Models.Base;
+﻿using PHILOBMBusiness.Services.Interfaces;
+using PHILOBMCore.Models.Base;
 using PHILOBMDatabase.Repositories.Interfaces;
 
 namespace PHILOBMBusiness.Services;
 
-public abstract class BaseService<T> where T : BaseEntity
+public abstract class BaseService<T>: IBaseService<T> where T : BaseEntity
 {
     protected readonly IBaseRepository<T> _repository;
 

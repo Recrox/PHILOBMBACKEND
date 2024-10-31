@@ -7,7 +7,7 @@ namespace PHILOBMBusiness.Services;
 public class ClientService : BaseService<Client>, IClientService
 {
     private readonly IClientRepository _clientRepository;
-    public ClientService(IClientRepository clientRepository) : base(clientRepository)
+    public ClientService(IClientRepository clientRepository) : base((IBaseRepository<Client>)clientRepository)
     {
         _clientRepository = clientRepository;
     }
