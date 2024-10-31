@@ -11,6 +11,7 @@ using Configuration.ConstantsSettings;
 using PHILOBMDatabase.Repositories.Interfaces;
 using PHILOBMDatabase.Repositories;
 using PHILOBMBAPI;
+using PHILOBMCore;
 
 public class Startup
 {

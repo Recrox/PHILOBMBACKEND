@@ -1,8 +1,6 @@
 ﻿using System.Diagnostics;
-using System.IO;
-using System.Windows;
 
-namespace PHILOBMDatabase.Repositories;
+namespace PHILOBMCore;
 
 public static class Outils
 {

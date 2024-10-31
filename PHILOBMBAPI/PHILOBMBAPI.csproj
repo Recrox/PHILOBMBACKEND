@@ -20,7 +20,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Configuration\Configuration.csproj" />
     <ProjectReference Include="..\PHILOBMBusiness\PHILOBMBusiness.csproj" />
-    <ProjectReference Include="..\PHILOBMCORE\PHILOBMBusiness.csproj" />
+    <ProjectReference Include="..\PHILOBMCore\PHILOBMCore.csproj" />
   </ItemGroup>
 
 </Project>

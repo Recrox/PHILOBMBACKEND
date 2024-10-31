@@ -7,11 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Class1.cs" />
+    <Compile Remove="Models - Copier\**" />
+    <EmbeddedResource Remove="Models - Copier\**" />
+    <None Remove="Models - Copier\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Models - Copier\History\" />
+    <Compile Remove="Class1.cs" />
   </ItemGroup>
 
 </Project>

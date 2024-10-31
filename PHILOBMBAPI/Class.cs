@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using PHILOBMBusiness.Models;
+using PHILOBMCore.Models;
 
 namespace PHILOBMBAPI;
 public class MappingProfile : Profile

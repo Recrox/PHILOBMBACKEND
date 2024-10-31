@@ -9,6 +9,7 @@ using PHILOBMDatabase.Database;
 using Configuration.ConstantsSettings;
 using PHILOBMCore.Models;
 using PHILOBMDatabase.Repositories.Interfaces;
+using PHILOBMCore;
 
 namespace PHILOBMBusiness.Services;
 

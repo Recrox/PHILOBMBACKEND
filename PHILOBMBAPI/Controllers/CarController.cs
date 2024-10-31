@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using PHILOBMBusiness.Models;
 using PHILOBMBusiness.Services.Interfaces;
+using PHILOBMCore.Models;
 
 namespace PHILOBMBAPI.Controllers;
 
