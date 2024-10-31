@@ -92,6 +92,8 @@ public class Startup
         services.AddScoped<IClientService, ClientService>();
         services.AddScoped<ICarService, CarService>();
         services.AddScoped<IInvoiceService, InvoiceService>();
+        services.AddScoped<IPdfService, PdfService>();
+        services.AddScoped<IExcellService, ExcellService>();
     }
 
     private static void AddRepositories(IServiceCollection services)
@@ -99,14 +101,6 @@ public class Startup
         services.AddScoped<IClientRepository, ClientRepository>();
         services.AddScoped<ICarRepository, CarRepository>();
         services.AddScoped<IInvoiceRepository, InvoiceRepository>();
-
-        services.AddSingleton(provider => new FileService
-        {
-            DatabaseFileName = Constants.DBName,
-            BackupDirectory = Constants.BackupFolderName,
-            MaxBackupCount = Constants.MaxBackupCount,
-            ShowMessageBoxes = Constants.ShowMessageBoxes
-        });
     }
 
     private void AddConfiguration(IServiceCollection services)

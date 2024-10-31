@@ -1,4 +1,5 @@
-﻿using PHILOBMBusiness.Services.Interfaces;
+﻿using AutoMapper;
+using PHILOBMBusiness.Services.Interfaces;
 using PHILOBMCore.Models.Base;
 using PHILOBMDatabase.Repositories.Interfaces;
 
@@ -7,11 +8,22 @@ namespace PHILOBMBusiness.Services;
 public abstract class BaseService<T>: IBaseService<T> where T : BaseEntity
 {
     protected readonly IBaseRepository<T> _repository;
+    private readonly IMapper mapper;
 
-    protected BaseService(IBaseRepository<T> repository)
+    protected BaseService()
     {
-        _repository = repository;
+
     }
+
+    public BaseService(IMapper mapper) : this()
+    {
+        this.mapper = mapper;
+    }
+
+    //public BaseService(IBaseRepository<T> repository) : this()
+    //{
+    //    _repository = repository;
+    //}
 
     // Récupérer tous les éléments
     public async Task<ICollection<T>> GetAllAsync() => await _repository.GetAllAsync();
