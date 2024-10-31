@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PHILOBMCore.Models;
 
-namespace PHILOBMCore.Services.Interfaces;
+namespace PHILOBMBusiness.Services.Interfaces;
 
-public interface IInvoiceService : IBaseContextService<Invoice>
+public interface IInvoiceService : IBaseService<Invoice>
 {
     Task<FileContentResult?> CreerPDFAsync(int invoiceId);
     Task CreerExcelAsync(Invoice invoice);

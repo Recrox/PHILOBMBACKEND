@@ -1,6 +1,6 @@
-﻿using PHILOBMCore.Models.Base;
+﻿using PHILOBMDatabase.Models.Base;
 
-namespace PHILOBMCore.Models;
+namespace PHILOBMDatabase.Models;
 
 public class Service : AuditableEntity
 {

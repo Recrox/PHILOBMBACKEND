@@ -1,21 +1,24 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PdfSharpCore.Drawing;
 using PdfSharpCore.Pdf;
-using PHILOBMCore.Database;
-using PHILOBMCore.Models;
-using PHILOBMCore.Services.Interfaces;
+using PHILOBMBusiness.Services.Interfaces;
 using OfficeOpenXml;
 using OfficeOpenXml.Style;
-using PHILOBMCore.ConstantsSettings;
 using Microsoft.AspNetCore.Mvc;
+using PHILOBMDatabase.Database;
+using Configuration.ConstantsSettings;
+using PHILOBMCore.Models;
+using PHILOBMDatabase.Repositories.Interfaces;
 
-namespace PHILOBMCore.Services;
+namespace PHILOBMBusiness.Services;
 
-public class InvoiceService : BaseContextService<Invoice>, IInvoiceService
+public class InvoiceService : BaseService<Invoice>, IInvoiceService
 {
-    public InvoiceService(PhiloBMContext context) : base(context)
-    {
+    private readonly IInvoiceRepository _invoiceRepository;
 
+    public InvoiceService(IInvoiceRepository invoiceRepository) : base(invoiceRepository)
+    {
+        this._invoiceRepository = invoiceRepository;
     }
 
     public async Task<FileContentResult?> CreerPDFAsync(int invoiceId)
@@ -285,13 +288,9 @@ public class InvoiceService : BaseContextService<Invoice>, IInvoiceService
         document.Close();
     }
 
-    public async Task<IEnumerable<Invoice>> GetInvoicesByClientIdAsync(int selectedClientId)
+    public async Task<IEnumerable<Invoice>> GetInvoicesByClientIdAsync(int ClientId)
     {
-        var invoices = await _context.Invoices
-            .Include(invoice => invoice.Client) // Inclut les détails du client si nécessaire
-            .Where(invoice => invoice.Client.Id == selectedClientId) // Assurez-vous que Client est correctement référencé
-            .ToListAsync(); // Exécute la requête et retourne la liste des factures
-
+        var invoices = await _invoiceRepository.GetInvoicesByClientIdAsync(ClientId);
         return invoices;
     }
 

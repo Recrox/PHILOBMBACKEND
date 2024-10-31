@@ -1,9 +1,6 @@
-﻿using System.IO;
-using System.Windows;
-
-namespace PHILOBMCore.Services;
-
-public class FileService
+﻿
+namespace PHILOBMDatabase.Repositories;
+public class FileRepository
 {
     public string DatabaseFileName { get; set; } = null!;
     public string BackupDirectory { get; set; } = null!;

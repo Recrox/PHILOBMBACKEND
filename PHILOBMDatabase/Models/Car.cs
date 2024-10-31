@@ -1,7 +1,7 @@
-﻿using PHILOBMCore.Models.Base;
+﻿using PHILOBMDatabase.Models.Base;
 using System.Collections.ObjectModel;
 
-namespace PHILOBMCore.Models;
+namespace PHILOBMDatabase.Models;
 
 public class Car : AuditableEntity
 {

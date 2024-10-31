@@ -1,17 +1,20 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using PHILOBMCore.Database;
-using PHILOBMCore.Models.Base;
-using PHILOBMCore.Services.Interfaces;
+using PHILOBMDatabase.Models.Base;
+using PHILOBMDatabase.Repositories.Interfaces;
+using PHILOBMDatabase.Database;
+using AutoMapper;
 
-namespace PHILOBMCore.Services;
+namespace PHILOBMDatabase.Repositories;
 
-public abstract class BaseContextService<T> : IBaseContextService<T> where T : BaseEntity
+public abstract class BaseRepository<T> : IBaseRepository<T> where T : BaseEntity
 {
     protected readonly PhiloBMContext _context;
+    protected readonly IMapper _mapper;
 
-    protected BaseContextService(PhiloBMContext context)
+    protected BaseRepository(PhiloBMContext context, IMapper mapper)
     {
         _context = context;
+        _mapper = mapper;
     }
 
     public async Task<ICollection<T>> GetAllAsync() => await _context.Set<T>().ToListAsync();

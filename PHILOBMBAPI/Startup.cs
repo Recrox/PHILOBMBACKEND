@@ -1,13 +1,16 @@
-﻿using PHILOBMCore.Services.Interfaces;
-using PHILOBMCore.Services;
+﻿using PHILOBMBusiness.Services.Interfaces;
+using PHILOBMBusiness.Services;
 using Serilog;
 using Serilog.Events;
-using PHILOBMCore.Database;
-using PHILOBMCore.ConstantsSettings;
 using Microsoft.EntityFrameworkCore;
 using Swashbuckle.AspNetCore.SwaggerUI;
 using Microsoft.Extensions.Options;
 using Configuration;
+using PHILOBMDatabase.Database;
+using Configuration.ConstantsSettings;
+using PHILOBMDatabase.Repositories.Interfaces;
+using PHILOBMDatabase.Repositories;
+using PHILOBMBAPI;
 
 public class Startup
 {
@@ -16,7 +19,11 @@ public class Startup
     public Startup(IConfiguration configuration)
     {
         _configuration = configuration;
+        AddLogs();
+    }
 
+    private static void AddLogs()
+    {
         // Configurer Serilog au moment de la construction de Startup
         Log.Logger = new LoggerConfiguration()
             .MinimumLevel.Error()
@@ -47,8 +54,12 @@ public class Startup
             loggingBuilder.AddSerilog(); 
         });
 
-        AddServices(services);
+        services.AddAutoMapper(typeof(MappingProfile).Assembly);
 
+        AddServices(services);
+        AddRepositories(services);
+
+        AddConfiguration(services);
         AddDbContextRelative(services);
     }
 
@@ -77,6 +88,17 @@ public class Startup
     // Enregistrement des services spécifiques
     private void AddServices(IServiceCollection services)
     {
+        services.AddScoped<IClientService, ClientService>();
+        services.AddScoped<ICarService, CarService>();
+        services.AddScoped<IInvoiceService, InvoiceService>();
+    }
+
+    private static void AddRepositories(IServiceCollection services)
+    {
+        services.AddScoped<IClientRepository, ClientRepository>();
+        services.AddScoped<ICarRepository, CarRepository>();
+        services.AddScoped<IInvoiceRepository, InvoiceRepository>();
+
         services.AddSingleton(provider => new FileService
         {
             DatabaseFileName = Constants.DBName,
@@ -84,12 +106,6 @@ public class Startup
             MaxBackupCount = Constants.MaxBackupCount,
             ShowMessageBoxes = Constants.ShowMessageBoxes
         });
-
-        services.AddScoped<IClientService, ClientService>();
-        services.AddScoped<ICarService, CarService>();
-        services.AddScoped<IInvoiceService, InvoiceService>();
-
-        AddConfiguration(services);
     }
 
     private void AddConfiguration(IServiceCollection services)

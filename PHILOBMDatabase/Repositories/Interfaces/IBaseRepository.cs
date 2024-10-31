@@ -1,6 +1,6 @@
-﻿namespace PHILOBMCore.Services.Interfaces;
+﻿namespace PHILOBMDatabase.Repositories.Interfaces;
 
-public interface IBaseContextService<T>
+public interface IBaseRepository<T>
 {
     Task<ICollection<T>> GetAllAsync();
     Task<T?> GetByIdAsync(int id);

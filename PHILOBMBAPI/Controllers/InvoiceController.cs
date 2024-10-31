@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PdfSharpCore.Pdf.Advanced;
-using PHILOBMCore.Models;
-using PHILOBMCore.Services.Interfaces;
+using PHILOBMBusiness.Models;
+using PHILOBMBusiness.Services.Interfaces;
 
 namespace PHILOBMBAPI.Controllers;
 

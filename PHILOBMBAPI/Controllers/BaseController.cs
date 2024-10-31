@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using PHILOBMCore.Models.Base;
-using PHILOBMCore.Services.Interfaces;
+using PHILOBMBusiness.Models.Base;
+using PHILOBMBusiness.Services.Interfaces;
 
 namespace PHILOBMBAPI.Controllers
 {
@@ -8,7 +8,7 @@ namespace PHILOBMBAPI.Controllers
     [Route("api/[controller]")]
     public abstract class BaseController<T, TService> : ControllerBase
         where T : BaseEntity
-        where TService : IBaseContextService<T>
+        where TService : IBaseService<T>
     {
         protected readonly TService _service;
 

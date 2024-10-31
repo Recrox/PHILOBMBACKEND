@@ -2,7 +2,7 @@
 using System.IO;
 using System.Windows;
 
-namespace PHILOBMCore.Services;
+namespace PHILOBMDatabase.Repositories;
 
 public static class Outils
 {

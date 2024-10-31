@@ -1,6 +1,6 @@
-﻿using System.IO;
+﻿
 
-namespace PHILOBMCore.ConstantsSettings;
+namespace Configuration.ConstantsSettings;
 
 public static class Constants
 {

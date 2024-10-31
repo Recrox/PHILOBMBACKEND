@@ -1,9 +1,7 @@
-﻿using PHILOBMCore.Models;
+﻿using PHILOBMDatabase.Models;
 using Microsoft.EntityFrameworkCore;
-using PHILOBMCore.ConstantsSettings;
-using PHILOBMCore.Models.Base;
 
-namespace PHILOBMCore.Database;
+namespace PHILOBMDatabase.Database;
 
 public class PhiloBMContext : DbContext
 {
