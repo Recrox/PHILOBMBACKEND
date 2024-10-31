@@ -7,15 +7,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Models\History\**" />
+    <EmbeddedResource Remove="Models\History\**" />
+    <None Remove="Models\History\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="13.0.1" />
     <PackageReference Include="EPPlus" Version="7.4.2" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.10" />
     <PackageReference Include="PdfSharpCore" Version="1.3.65" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Models\History\" />
   </ItemGroup>
 
   <ItemGroup>

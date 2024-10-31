@@ -1,12 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
-using PHILOBMDatabase.Models.Base;
-using PHILOBMDatabase.Repositories.Interfaces;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
+using PHILOBMCore.Models.Base;
 using PHILOBMDatabase.Database;
-using AutoMapper;
+using PHILOBMDatabase.Repositories.Interfaces;
 
-namespace PHILOBMDatabase.Repositories;
-
-public abstract class BaseRepository<T> : IBaseRepository<T> where T : BaseEntity
+public abstract class BaseRepository<TCore, TEntity> : IBaseRepository<TCore>
+    where TCore : BaseEntity // TCore représente le modèle du domaine
+    where TEntity : PHILOBMDatabase.Models.Base.BaseEntity // TEntity représente l'entité de base de données
 {
     protected readonly PhiloBMContext _context;
     protected readonly IMapper _mapper;
@@ -17,32 +17,38 @@ public abstract class BaseRepository<T> : IBaseRepository<T> where T : BaseEntit
         _mapper = mapper;
     }
 
-    public async Task<ICollection<T>> GetAllAsync() => await _context.Set<T>().ToListAsync();
+    public async Task<ICollection<TCore>> GetAllAsync() =>
+        await _mapper.ProjectTo<TCore>(_context.Set<TEntity>()).ToListAsync();
 
-    public async Task<T?> GetByIdAsync(int id) => await _context.Set<T>().FirstOrDefaultAsync(item => item.Id == id);
+    public async Task<TCore?> GetByIdAsync(int id) =>
+        _mapper.Map<TCore>(await _context.Set<TEntity>().FirstOrDefaultAsync(item => item.Id == id));
 
-    public async Task AddAsync(T entity)
+    public async Task AddAsync(TCore entity)
     {
-        _context.Set<T>().Add(entity);
+        var entityToAdd = _mapper.Map<TEntity>(entity); // Mapper Core vers DB
+        _context.Set<TEntity>().Add(entityToAdd);
         await _context.SaveChangesAsync();
     }
 
-    public async Task UpdateAsync(T entity)
+    public async Task UpdateAsync(TCore entity)
     {
-        _context.Set<T>().Update(entity);
+        var entityToUpdate = _mapper.Map<TEntity>(entity); // Mapper Core vers DB
+        _context.Set<TEntity>().Update(entityToUpdate);
         await _context.SaveChangesAsync();
     }
 
     public async Task<bool> DeleteAsync(int id)
     {
-        var entity = await _context.Set<T>().FindAsync(id);
+        var entity = await _context.Set<TEntity>().FindAsync(id);
         if (entity != null)
         {
-            _context.Set<T>().Remove(entity);
+            _context.Set<TEntity>().Remove(entity);
             await _context.SaveChangesAsync();
             return true; // Renvoie vrai si la suppression a réussi
         }
         return false; // Renvoie faux si l'entité n'existe pas
     }
 
+    public async Task<int> CountAsync() =>
+        await _context.Set<TEntity>().CountAsync(); // Compte le nombre d'entités
 }

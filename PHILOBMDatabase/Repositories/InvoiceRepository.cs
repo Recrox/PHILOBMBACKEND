@@ -6,7 +6,7 @@ using PHILOBMCore.Models;
 
 namespace PHILOBMDatabase.Repositories;
 
-public class InvoiceRepository : BaseRepository<Models.Invoice>, IInvoiceRepository
+public class InvoiceRepository : BaseRepository<Invoice,Models.Invoice>, IInvoiceRepository
 {
     public InvoiceRepository(PhiloBMContext context, IMapper mapper) : base(context, mapper)
     {

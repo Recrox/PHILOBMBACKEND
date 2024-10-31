@@ -5,7 +5,7 @@ using PHILOBMDatabase.Repositories.Interfaces;
 using PHILOBMCore.Models;
 namespace PHILOBMDatabase.Repositories;
 
-public class ClientRepository : BaseRepository<Models.Client>, IClientRepository
+public class ClientRepository : BaseRepository<Client,Models.Client>, IClientRepository
 {
 
     public ClientRepository(PhiloBMContext context, IMapper mapper) : base(context, mapper)

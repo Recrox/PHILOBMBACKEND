@@ -6,7 +6,7 @@ using PHILOBMCore.Models;
 
 namespace PHILOBMDatabase.Repositories;
 
-public class CarRepository : BaseRepository<Models.Car>, ICarRepository
+public class CarRepository : BaseRepository<Car, Models.Car>, ICarRepository
 {
     public CarRepository(PhiloBMContext context, IMapper mapper) : base(context, mapper)
     {
