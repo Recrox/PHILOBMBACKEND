@@ -4,6 +4,7 @@ using PHILOBMDatabase.Repositories.Interfaces;
 using PHILOBMDatabase.Database;
 using AutoMapper;
 using System.Linq.Expressions;
+using System.Text.Json;
 
 namespace PHILOBMDatabase.Repositories;
 
@@ -115,4 +116,47 @@ public abstract class BaseRepository<T> : IBaseRepository<T> where T : BaseEntit
             throw;
         }
     }
+
+    public async Task<Models.DatabaseData> ExportDatabaseToJson()
+    {
+        var clients = await _context.Clients.ToListAsync();
+        var cars = await _context.Cars.ToListAsync();
+        var invoices = await _context.Invoices.ToListAsync();
+        //var services = await _context.Services.ToListAsync();
+
+        var databaseData = new Models.DatabaseData
+        {
+            Clients = clients,
+            Cars = cars,
+            Invoices = invoices,
+            Services = null
+        };
+
+        return databaseData;
+
+        //var json = JsonSerializer.Serialize(databaseData, new JsonSerializerOptions { WriteIndented = true });
+
+        //await File.WriteAllTextAsync(filePath, json);
+    }
+    //public async Task ImportDatabaseFromJson()
+    //{
+    //    if (!File.Exists(filePath))
+    //    {
+    //        throw new FileNotFoundException("Le fichier JSON spécifié est introuvable.", filePath);
+    //    }
+
+    //    var json = await File.ReadAllTextAsync(filePath);
+    //    var databaseData = JsonSerializer.Deserialize<Models.DatabaseData>(json);
+
+    //    if (databaseData != null)
+    //    {
+    //        _context.Clients.AddRange(databaseData.Clients);
+    //        _context.Cars.AddRange(databaseData.Cars);
+    //        _context.Invoices.AddRange(databaseData.Invoices);
+    //        _context.Services.AddRange(databaseData.Services);
+    //        //await SaveChangesAsync();
+    //    }
+    //}
+
+    
 }

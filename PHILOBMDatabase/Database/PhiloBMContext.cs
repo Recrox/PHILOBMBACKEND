@@ -32,14 +32,6 @@ public class PhiloBMContext : DbContext
            .WithMany(client => client.Cars); // Un Client peut avoir plusieurs Cars
 
         base.OnModelCreating(modelBuilder);
-
-        //// Configure la table d'historique pour Client
-        //modelBuilder.Entity<Client>().ToTable("Clients");
-        //modelBuilder.Entity<Client>().ToTable("ClientHistories", t => t.ExcludeFromMigrations());
-
-        //// Configure la table d'historique pour Car
-        //modelBuilder.Entity<Car>().ToTable("Cars");
-        //modelBuilder.Entity<Car>().ToTable("CarHistories", t => t.ExcludeFromMigrations());
     }
 
 

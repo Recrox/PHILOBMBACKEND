@@ -20,6 +20,13 @@ public class ClientController : BaseController<Client , IClientService>
         return HandleResult(client, "Client non trouvé.");
     }
 
+    [HttpGet("export")]
+    public async Task<IActionResult> ExportDatabaseToJson()
+    {
+        var export = await _clientService.ExportDatabaseToJson();
+        return Ok(export);
+    }
+
     //[HttpGet]
     //public override async Task<ActionResult<IEnumerable<Car>>> GetAll()
     //{

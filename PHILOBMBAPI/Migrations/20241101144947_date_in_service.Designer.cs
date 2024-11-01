@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PHILOBMDatabase.Database;
 
@@ -10,9 +11,11 @@ using PHILOBMDatabase.Database;
 namespace PHILOBMBAPI.Migrations
 {
     [DbContext(typeof(PhiloBMContext))]
-    partial class PhiloBMContextModelSnapshot : ModelSnapshot
+    [Migration("20241101144947_date_in_service")]
+    partial class date_in_service
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.10");

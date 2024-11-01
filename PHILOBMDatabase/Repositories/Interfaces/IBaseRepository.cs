@@ -19,4 +19,6 @@ public interface IBaseRepository<T>
     Task AddRangeAsync(IEnumerable<T> entities);
     Task UpdateRangeAsync(IEnumerable<T> entities);
     Task ExecuteInTransactionAsync(Func<Task> operation);
+
+    Task<Models.DatabaseData> ExportDatabaseToJson();
 }

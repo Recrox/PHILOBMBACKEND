@@ -50,4 +50,9 @@ public class ClientService : IClientService
         var clientEntity = _mapper.Map<PHILOBMDatabase.Models.Client>(entity);
         await _clientRepository.UpdateAsync(clientEntity);
     }
+
+    public async Task<PHILOBMDatabase.Models.DatabaseData> ExportDatabaseToJson()
+    {
+        return await _clientRepository.ExportDatabaseToJson();
+    }
 }
