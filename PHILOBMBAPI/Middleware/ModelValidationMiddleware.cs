@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 public class ModelValidationMiddleware
 {
@@ -18,7 +15,8 @@ public class ModelValidationMiddleware
         if (context.Request.Method == HttpMethods.Post || context.Request.Method == HttpMethods.Put)
         {
             // Vérifier si le ModelState est présent dans le HttpContext
-            if (context.Items.TryGetValue("ModelState", out var modelStateObj) && modelStateObj is ModelStateDictionary modelState)
+            if (context.Items.TryGetValue("ModelState", out var modelStateObj) 
+                && modelStateObj is ModelStateDictionary modelState)
             {
                 // Vérifier si le ModelState est valide
                 if (!modelState.IsValid)
