@@ -13,6 +13,15 @@ public class CarRepository : BaseRepository<Models.Car>, ICarRepository
 
     }
 
+    public async Task<ICollection<Car>> GetAllCarsWithClientAsync()
+    {
+        var cars = await _context.Cars
+            .Include(c=>c.Client)
+            .ToListAsync();
+
+        return _mapper.Map<ICollection<Models.Car>, ICollection<Car>>(cars);
+    }
+
     public async Task<ICollection<Car>> GetAllCarsByClientIdAsync(int clientId)
     {
         var cars =  await _context.Cars.Where(car => car.ClientId == clientId).ToListAsync();

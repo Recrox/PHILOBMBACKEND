@@ -2,6 +2,7 @@
 using PHILOBMBusiness.Services.Interfaces;
 using PHILOBMCore.Models;
 using PHILOBMDatabase.Repositories.Interfaces;
+using System.Collections.Generic;
 
 namespace PHILOBMBusiness.Services;
 
@@ -33,6 +34,19 @@ public class CarService : ICarService
         return _mapper.Map<ICollection<Car>>(cars);
     }
 
+    public async Task UpdateAsync(Car entity)
+    {
+        var carEntity = _mapper.Map<PHILOBMDatabase.Models.Car>(entity);
+        await _carRepository.UpdateAsync(carEntity);
+    }
+
+    public async Task<ICollection<Car>> GetAllCarsWithClientAsync()
+    {
+        var carWithServices = await _carRepository.GetAllCarsWithClientAsync();
+        return carWithServices;
+        return _mapper.Map<ICollection<Car>> (carWithServices);
+    }
+
     public async Task<ICollection<Car>> GetAllCarsByClientIdAsync(int clientId)
     {
         var cars = await _carRepository.GetAllCarsByClientIdAsync(clientId);
@@ -51,9 +65,5 @@ public class CarService : ICarService
         return _mapper.Map<Car?>(carWithServices);
     }
 
-    public async Task UpdateAsync(Car entity)
-    {
-        var carEntity = _mapper.Map<PHILOBMDatabase.Models.Car>(entity);
-        await _carRepository.UpdateAsync(carEntity);
-    }
+    
 }

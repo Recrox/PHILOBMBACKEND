@@ -13,6 +13,13 @@ public class CarController : BaseController<Car, ICarService>
         _carService = carService;
     }
 
+    [HttpGet("cars")]
+    public async Task<ActionResult<IEnumerable<Car>>> GetAllCarsWithClientAsync()
+    {
+        var cars = await _carService.GetAllCarsWithClientAsync();
+        return HandleResult(cars, "Aucune voiture trouvée");
+    }
+    
     [HttpGet("{clientId}")]
     public async Task<ActionResult<IEnumerable<Car>>> GetCarsByClientId(int clientId)
     {

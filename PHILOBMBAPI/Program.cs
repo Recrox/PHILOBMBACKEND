@@ -1,3 +1,4 @@
+namespace PHILOBMBAPI;
 internal class Program
 {
     private static void Main(string[] args)

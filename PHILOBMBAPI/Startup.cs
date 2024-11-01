@@ -10,10 +10,12 @@ using PHILOBMDatabase.Database;
 using Configuration.ConstantsSettings;
 using PHILOBMDatabase.Repositories.Interfaces;
 using PHILOBMDatabase.Repositories;
-using PHILOBMBAPI;
 using PHILOBMCore;
+using FluentValidation.AspNetCore;
+using PHILOBMBAPI.Validators;
 
-public class Startup
+namespace PHILOBMBAPI;
+public partial class Startup
 {
     private readonly IConfiguration _configuration;
 
@@ -23,7 +25,7 @@ public class Startup
         AddLogs();
     }
 
-    private static void AddLogs()
+    private void AddLogs()
     {
         // Configurer Serilog au moment de la construction de Startup
         Log.Logger = new LoggerConfiguration()
@@ -52,16 +54,25 @@ public class Startup
         services.AddLogging(loggingBuilder =>
         {
             loggingBuilder.ClearProviders();
-            loggingBuilder.AddSerilog(); 
+            loggingBuilder.AddSerilog();
         });
 
         services.AddAutoMapper(typeof(MappingProfile).Assembly);
 
         AddServices(services);
         AddRepositories(services);
-
         AddConfiguration(services);
         AddDbContextRelative(services);
+        AddValidators(services);
+    }
+
+
+    private void AddValidators(IServiceCollection services)
+    {
+        //services.AddControllers()
+        //        .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<CarValidator>());
+
+        //services.AddFluentValidationAutoValidation();
     }
 
     // Configure le pipeline HTTP ici
@@ -79,6 +90,7 @@ public class Startup
             });
         }
         app.UseMiddleware<ModelValidationMiddleware>();
+        
         app.UseCors("AllowAllOrigins");
         app.UseHttpsRedirection();
         app.UseRouting();
@@ -96,7 +108,7 @@ public class Startup
         services.AddScoped<IExcellService, ExcellService>();
     }
 
-    private static void AddRepositories(IServiceCollection services)
+    private void AddRepositories(IServiceCollection services)
     {
         services.AddScoped<IClientRepository, ClientRepository>();
         services.AddScoped<ICarRepository, CarRepository>();
@@ -112,7 +124,7 @@ public class Startup
     }
 
     // Configurer le contexte de base de données avec SQLite
-    private static void AddDbContextRelative(IServiceCollection services)
+    private void AddDbContextRelative(IServiceCollection services)
     {
         Outils.CréerDossierSiInexistant(Constants.RacinePath);
 
