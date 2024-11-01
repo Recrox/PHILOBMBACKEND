@@ -4,7 +4,6 @@ using PHILOBMCore.Models;
 
 namespace PHILOBMBAPI.Controllers;
 
-[Route("api/[controller]")]
     public class InvoiceController : BaseController<Invoice,IInvoiceService>
     {
         private readonly IInvoiceService _invoiceService;

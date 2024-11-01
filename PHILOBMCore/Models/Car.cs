@@ -12,7 +12,7 @@ public class Car : AuditableEntity
     public string? ChassisNumber { get; set; } // Chassis number
     public int? Mileage { get; set; } // Mileage
     
-    public ObservableCollection<Service> Services { get; set; } = new ObservableCollection<Service>();
+    public ICollection<Service> Services { get; set; } = new List<Service>();
 
     public int? ClientId { get; set; } // Foreign key to Client
     public Client? Client { get; set; } // Owner

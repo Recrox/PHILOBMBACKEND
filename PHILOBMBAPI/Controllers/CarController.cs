@@ -4,7 +4,6 @@ using PHILOBMCore.Models;
 
 namespace PHILOBMBAPI.Controllers;
 
-[Route("api/[controller]")]
 public class CarController : BaseController<Car, ICarService>
 {
     private readonly ICarService _carService;

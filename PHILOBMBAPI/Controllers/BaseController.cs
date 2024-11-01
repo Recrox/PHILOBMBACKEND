@@ -18,7 +18,7 @@ namespace PHILOBMBAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<T>>> GetAll()
+        public virtual async Task<ActionResult<IEnumerable<T>>> GetAll()
         {
             var items = await _service.GetAllAsync();
             return HandleResult(items, "Aucun élément trouvé.");

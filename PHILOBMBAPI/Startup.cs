@@ -78,7 +78,7 @@ public class Startup
                 c.DocExpansion(DocExpansion.None);
             });
         }
-
+        app.UseMiddleware<ModelValidationMiddleware>();
         app.UseCors("AllowAllOrigins");
         app.UseHttpsRedirection();
         app.UseRouting();
@@ -117,6 +117,8 @@ public class Startup
         Outils.CréerDossierSiInexistant(Constants.RacinePath);
 
         services.AddDbContext<PhiloBMContext>(options =>
-            options.UseSqlite($"Data Source={Constants.DbPath}"));
+            options.UseSqlite($"Data Source={Constants.DbPath}",
+            b => b.MigrationsAssembly("PHILOBMBAPI"))); // Change to your target project name
     }
+
 }

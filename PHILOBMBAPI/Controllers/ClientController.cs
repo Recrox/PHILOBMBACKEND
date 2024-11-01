@@ -4,7 +4,6 @@ using PHILOBMCore.Models;
 
 namespace PHILOBMBAPI.Controllers;
 
-[Route("api/[controller]")]
 public class ClientController : BaseController<Client , IClientService>
 {
     private readonly IClientService _clientService;
@@ -20,4 +19,11 @@ public class ClientController : BaseController<Client , IClientService>
         var client = await _clientService.GetClientByIdWithCarsAsync(clientId);
         return HandleResult(client, "Client non trouvé.");
     }
+
+    //[HttpGet]
+    //public override async Task<ActionResult<IEnumerable<Car>>> GetAll()
+    //{
+    //    // Optionnel : Retourner une réponse spécifique ou lancer une exception
+    //    return NotFound("Cet endpoint n'est pas disponible pour les voitures.");
+    //}
 }
