@@ -20,4 +20,6 @@ DELETE FROM "__EFMigrationsHistory" WHERE "MigrationId" = 'YourMigrationName';
 
 dotnet ef database drop
 
-
+ajouter dans la db les différentes migration:
+INSERT INTO __EFMigrationsHistory (MigrationId, ProductVersion) 
+VALUES ('20241101144947_date_in_service', '8.0.0'); 

@@ -28,8 +28,10 @@ public class PhiloBMContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Car>()
-           .HasOne(car => car.Client) // Configure la relation de Car à Client
-           .WithMany(client => client.Cars); // Un Client peut avoir plusieurs Cars
+            .HasOne(c => c.Client)
+            .WithMany(c => c.Cars)
+            .HasForeignKey(c => c.ClientId)
+            .OnDelete(DeleteBehavior.SetNull);
 
         base.OnModelCreating(modelBuilder);
     }
