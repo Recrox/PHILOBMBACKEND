@@ -27,6 +27,10 @@ public class PhiloBMContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<Car>()
+           .HasOne(car => car.Client) // Configure la relation de Car à Client
+           .WithMany(client => client.Cars); // Un Client peut avoir plusieurs Cars
+
         base.OnModelCreating(modelBuilder);
 
         //// Configure la table d'historique pour Client

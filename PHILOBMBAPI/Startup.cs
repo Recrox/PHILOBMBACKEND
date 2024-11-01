@@ -11,11 +11,11 @@ using Configuration.ConstantsSettings;
 using PHILOBMDatabase.Repositories.Interfaces;
 using PHILOBMDatabase.Repositories;
 using PHILOBMCore;
-using FluentValidation.AspNetCore;
-using PHILOBMBAPI.Validators;
+using System.Reflection;
+using System.Text.Json.Serialization;
 
 namespace PHILOBMBAPI;
-public partial class Startup
+public class Startup
 {
     private readonly IConfiguration _configuration;
 
@@ -64,6 +64,13 @@ public partial class Startup
         AddConfiguration(services);
         AddDbContextRelative(services);
         AddValidators(services);
+
+        //eviter les references circulaires
+        services.AddControllers()
+        .AddJsonOptions(options =>
+        {
+            options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+        });
     }
 
 
@@ -130,7 +137,7 @@ public partial class Startup
 
         services.AddDbContext<PhiloBMContext>(options =>
             options.UseSqlite($"Data Source={Constants.DbPath}",
-            b => b.MigrationsAssembly("PHILOBMBAPI"))); // Change to your target project name
+            b => b.MigrationsAssembly(Assembly.GetExecutingAssembly().GetName().Name))); // Utiliser le nom de l'assembly actuel
     }
 
 }

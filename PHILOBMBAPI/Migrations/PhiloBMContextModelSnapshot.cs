@@ -57,7 +57,7 @@ namespace PHILOBMBAPI.Migrations
 
                     b.HasIndex("ClientId");
 
-                    b.ToTable("Cars");
+                    b.ToTable("Cars", (string)null);
                 });
 
             modelBuilder.Entity("PHILOBMDatabase.Models.Client", b =>
@@ -95,7 +95,7 @@ namespace PHILOBMBAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Clients");
+                    b.ToTable("Clients", (string)null);
                 });
 
             modelBuilder.Entity("PHILOBMDatabase.Models.Invoice", b =>
@@ -131,7 +131,7 @@ namespace PHILOBMBAPI.Migrations
 
                     b.HasIndex("ClientId");
 
-                    b.ToTable("Invoices");
+                    b.ToTable("Invoices", (string)null);
                 });
 
             modelBuilder.Entity("PHILOBMDatabase.Models.Service", b =>
@@ -173,7 +173,7 @@ namespace PHILOBMBAPI.Migrations
 
                     b.HasIndex("InvoiceId");
 
-                    b.ToTable("Services");
+                    b.ToTable("Services", (string)null);
                 });
 
             modelBuilder.Entity("PHILOBMDatabase.Models.Car", b =>
