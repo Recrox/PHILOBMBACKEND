@@ -17,4 +17,3 @@ public class Invoice : AuditableEntity
         return Services.Sum(service => service.CalculateCost());
     }
 }
-

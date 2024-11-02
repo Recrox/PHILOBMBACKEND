@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PHILOBMBusiness.Services.Interfaces;
 using PHILOBMCore.Models;
 
@@ -20,6 +21,7 @@ public class ClientController : BaseController<Client , IClientService>
         return HandleResult(client, "Client non trouvé.");
     }
 
+    [Authorize(Roles = "Admin")]
     [HttpGet("export")]
     public async Task<IActionResult> ExportDatabaseToJson()
     {

@@ -10,5 +10,6 @@ public class MappingProfile : Profile
         CreateMap<Car, PHILOBMDatabase.Models.Car>().ReverseMap();
         CreateMap<Invoice, PHILOBMDatabase.Models.Invoice>().ReverseMap();
         CreateMap<Service, PHILOBMDatabase.Models.Service>().ReverseMap();
+        CreateMap<User, PHILOBMDatabase.Models.User>().ReverseMap();
     }
 }

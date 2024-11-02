@@ -23,3 +23,8 @@ dotnet ef database drop
 ajouter dans la db les différentes migration:
 INSERT INTO __EFMigrationsHistory (MigrationId, ProductVersion) 
 VALUES ('20241101144947_date_in_service', '8.0.0'); 
+
+
+lancer le .bat
+installer dernière version de dotnet
+https://dotnet.microsoft.com/fr-fr/download/dotnet

@@ -18,5 +18,3 @@ public class Car : AuditableEntity
     public Client? Client { get; set; } // Owner
 }
 
-
-

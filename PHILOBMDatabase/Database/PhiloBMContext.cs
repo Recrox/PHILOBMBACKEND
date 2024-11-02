@@ -9,6 +9,7 @@ public class PhiloBMContext : DbContext
     public DbSet<Car> Cars { get; set; }
     public DbSet<Invoice> Invoices { get; set; }
     public DbSet<Service> Services { get; set; }
+    public DbSet<User> Users { get; set; }
 
 
     public PhiloBMContext(DbContextOptions<PhiloBMContext> options)
