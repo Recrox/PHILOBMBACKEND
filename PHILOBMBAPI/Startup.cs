@@ -49,6 +49,7 @@ public class Startup
             {
                 //c.SwaggerEndpoint("/swagger/v1/swagger.json", "Your API V1");
                 //c.RoutePrefix = string.Empty; // Pour afficher Swagger à la racine
+                c.InjectStylesheet("/css/swagger-dark.css"); // Ajoute le CSS personnalisé pour le mode sombre
                 c.DocExpansion(DocExpansion.None);
             });
         }

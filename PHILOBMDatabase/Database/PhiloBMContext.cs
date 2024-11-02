@@ -1,5 +1,6 @@
 ﻿using PHILOBMDatabase.Models;
 using Microsoft.EntityFrameworkCore;
+using PHILOBMDatabase.Models.Base;
 
 namespace PHILOBMDatabase.Database;
 
@@ -10,6 +11,9 @@ public class PhiloBMContext : DbContext
     public DbSet<Invoice> Invoices { get; set; }
     public DbSet<Service> Services { get; set; }
     public DbSet<User> Users { get; set; }
+
+    // Remplacez par le nom d'utilisateur actuel si disponible dans le contexte de l'application.
+    private readonly string _currentUser = "System"; // Exemple, utilisez une méthode pour récupérer l'utilisateur actuel.
 
 
     public PhiloBMContext(DbContextOptions<PhiloBMContext> options)
@@ -37,63 +41,33 @@ public class PhiloBMContext : DbContext
         base.OnModelCreating(modelBuilder);
     }
 
+    public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+    {
+        SetAuditFields();
+        return await base.SaveChangesAsync(cancellationToken);
+    }
 
-    //public override int SaveChanges()
-    //{
-    //    var entries = ChangeTracker.Entries()
-    //        .Where(e => e.State == EntityState.Added || e.State == EntityState.Modified || e.State == EntityState.Deleted);
+    private void SetAuditFields()
+    {
+        var entries = ChangeTracker.Entries<AuditableEntity>()
+        .Where(e => e.State == EntityState.Added || e.State == EntityState.Modified);
 
-    //    foreach (var entry in entries)
-    //    {
-    //        if (entry.Entity is AuditableEntity auditableEntity)
-    //        {
-    //            var now = DateTime.UtcNow;
-    //            auditableEntity.ModifiedDate = now;
-    //            auditableEntity.ModifiedBy = "CurrentUser"; // Remplacez par l'utilisateur actuel si nécessaire
+        foreach (var entry in entries)
+        {
+            var entity = entry.Entity;
 
-    //            // Créez une copie pour l'historique
-    //            if (entry.Entity is Client client)
-    //            {
-    //                var history = new Client
-    //                {
-    //                    Id = client.Id,
-    //                    LastName = client.LastName,
-    //                    FirstName = client.FirstName,
-    //                    Address = client.Address,
-    //                    Phone = client.Phone,
-    //                    Email = client.Email,
-
-    //                    CreatedBy = client.CreatedBy,
-    //                    CreatedDate = client.CreatedDate,
-    //                    ModifiedBy = client.ModifiedBy,
-    //                    ModifiedDate = client.ModifiedDate
-    //                };
-
-    //                // Ajout dans la table d'historique
-    //                Set<Client>().FromSqlRaw("INSERT INTO ClientHistories SELECT * FROM {0}", history);
-    //            }
-    //            else if (entry.Entity is Car car)
-    //            {
-    //                var history = new Car
-    //                {
-    //                    Id = car.Id,
-    //                    Model = car.Model,
-
-    //                    CreatedBy = car.CreatedBy,
-    //                    CreatedDate = car.CreatedDate,
-    //                    ModifiedBy = car.ModifiedBy,
-    //                    ModifiedDate = car.ModifiedDate
-    //                };
-
-    //                // Ajout dans la table d'historique
-    //                Set<Car>().FromSqlRaw("INSERT INTO CarHistories SELECT * FROM {0}", history);
-    //            }
-    //        }
-    //    }
-
-    //    return base.SaveChanges();
-    //}
-
+            if (entry.State == EntityState.Added)
+            {
+                entity.CreatedDate = DateTime.UtcNow;
+                entity.CreatedBy = _currentUser;
+            }
+            else if (entry.State == EntityState.Modified)
+            {
+                entity.ModifiedDate = DateTime.UtcNow;
+                entity.ModifiedBy = _currentUser;
+            }
+        }
+    }
 
 }
 

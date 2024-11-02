@@ -31,4 +31,8 @@
     <ProjectReference Include="..\PHILOBMCore\PHILOBMCore.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="wwwroot\css\swagger-dark.css" />
+  </ItemGroup>
+
 </Project>
