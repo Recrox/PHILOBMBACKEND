@@ -13,6 +13,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PHILOBMBusiness", "PHILOBMB
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PHILOBMCore", "PHILOBMCore\PHILOBMCore.csproj", "{4E9E0239-29DB-4987-9121-D7133678F1D6}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ScriptLaunchLocal.bat", "ScriptLaunchLocal.bat", "{DF7282D5-E410-4165-9C77-C1D22DCD44A3}"
+	ProjectSection(SolutionItems) = preProject
+		C:\Users\recro\Desktop\publish\ScriptLaunchLocal.bat = C:\Users\recro\Desktop\publish\ScriptLaunchLocal.bat
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
