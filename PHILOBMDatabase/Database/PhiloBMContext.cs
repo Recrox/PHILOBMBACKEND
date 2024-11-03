@@ -58,11 +58,13 @@ public class PhiloBMContext : DbContext
 
             if (entry.State == EntityState.Added)
             {
+                //entity.CreatedDate = DateTime.UtcNow;
                 entity.CreatedDate = DateTime.UtcNow;
                 entity.CreatedBy = _currentUser;
             }
             else if (entry.State == EntityState.Modified)
             {
+                //entity.ModifiedDate = DateTime.UtcNow;
                 entity.ModifiedDate = DateTime.UtcNow;
                 entity.ModifiedBy = _currentUser;
             }

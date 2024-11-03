@@ -15,6 +15,6 @@ public class Car : AuditableEntity
     public ICollection<Service> Services { get; set; } = new List<Service>();
 
     public int? ClientId { get; set; } // Foreign key to Client
-    public Client? Client { get; set; } // Owner
+    //public Client? Client { get; set; } // Owner
 }
 

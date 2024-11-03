@@ -11,7 +11,7 @@ public class Service : AuditableEntity
 
     public DateTime Date { get; set; }
     public int? CarId { get; set; } // Clé étrangère
-    public Car? Car { get; set; } // Référence à la voiture associée
+    //public Car? Car { get; set; } // Référence à la voiture associée
 
     public decimal CalculateCost()
     {
