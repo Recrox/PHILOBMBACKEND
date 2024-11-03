@@ -13,10 +13,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.OpenApi.Models;
-using FluentValidation.AspNetCore;
-using PHILOBMBAPI.Validators;
 
-namespace PHILOBMBAPI.Configs;
+namespace PHILOBMBAPI.Extensions;
 
 public static class ServiceCollectionExtensions
 {

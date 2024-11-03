@@ -1,10 +1,16 @@
 ﻿using Microsoft.AspNetCore.Localization;
 using System.Globalization;
 
-namespace PHILOBMBAPI.Configs;
+namespace PHILOBMBAPI.Extensions;
 
 public static class WebApplicationExtensions
 {
+    public static WebApplication AddMiddlewares(this WebApplication app)
+    {
+        //app.UseMiddleware<ModelValidationMiddleware>();
+        return app;
+
+    }
     public static WebApplication AddCultureInfo(this WebApplication app)
     {
         var defaultCulture = new CultureInfo("fr-FR");

@@ -1,7 +1,8 @@
 ﻿using Serilog;
 using Serilog.Events;
 using Swashbuckle.AspNetCore.SwaggerUI;
-using PHILOBMBAPI.Configs;
+using PHILOBMBAPI.Extensions;
+using AspNetCoreRateLimit;
 
 namespace PHILOBMBAPI;
 public class Startup
@@ -12,17 +13,6 @@ public class Startup
     {
         _configuration = configuration;
         AddLogs();
-    }
-
-    private void AddLogs()
-    {
-        // Configurer Serilog au moment de la construction de Startup
-        Log.Logger = new LoggerConfiguration()
-            .MinimumLevel.Error()
-            .MinimumLevel.Override("Microsoft", LogEventLevel.Error)
-            .Enrich.FromLogContext()
-            .WriteTo.File("logs/app.log", rollingInterval: RollingInterval.Day)
-            .CreateLogger();
     }
     public void Configure(WebApplication app, IWebHostEnvironment env)
     {
@@ -38,7 +28,7 @@ public class Startup
                 c.DocExpansion(DocExpansion.None);
             });
         }
-        app.UseMiddleware<ModelValidationMiddleware>();
+        app.AddMiddlewares();
         app.AddCultureInfo();
         app.UseCors("AllowAllOrigins");
         app.UseHttpsRedirection();
@@ -46,7 +36,10 @@ public class Startup
         app.UseAuthentication(); // Ajoutez ceci pour l'authentification
         app.UseAuthorization();
         app.MapControllers();
+        app.UseIpRateLimiting();//eviter le spam de l'api
     }
+
+    
 
     public void ConfigureServices(IServiceCollection services)
     {
@@ -71,5 +64,22 @@ public class Startup
         services.AddCustomValidators();
         services.AddCustomControllers();
         services.AddCustomAuthentication(_configuration);
+
+        // Ajouter les services de limitation de débit
+        services.AddMemoryCache();
+        services.Configure<IpRateLimitOptions>(_configuration.GetSection("IpRateLimiting"));
+        services.AddSingleton<IRateLimitConfiguration, RateLimitConfiguration>();
+        services.AddInMemoryRateLimiting();
+    }
+
+    private void AddLogs()
+    {
+        // Configurer Serilog au moment de la construction de Startup
+        Log.Logger = new LoggerConfiguration()
+            .MinimumLevel.Error()
+            .MinimumLevel.Override("Microsoft", LogEventLevel.Error)
+            .Enrich.FromLogContext()
+            .WriteTo.File("logs/app.log", rollingInterval: RollingInterval.Day)
+            .CreateLogger();
     }
 }
