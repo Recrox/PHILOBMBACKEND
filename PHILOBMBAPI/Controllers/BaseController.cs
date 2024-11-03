@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PHILOBMBusiness.Services.Interfaces;
 using PHILOBMCore.Models.Base;
+using System.Security.Claims;
 
 namespace PHILOBMBAPI.Controllers;
 
@@ -11,7 +12,7 @@ public abstract class BaseController<T, TService> : ControllerBase
     where TService : IBaseService<T>
 {
     protected readonly TService _service;
-
+    protected ClaimsPrincipal CurrentUser => HttpContext.User;
     protected BaseController(TService service)
     {
         _service = service;
@@ -83,4 +84,20 @@ public abstract class BaseController<T, TService> : ControllerBase
         }
         return Ok(result);
     }
+
+    protected string? GetCurrentUserId()
+    {
+        return CurrentUser.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+    }
+
+    protected string? GetCurrentUserName()
+    {
+        return CurrentUser.FindFirst(ClaimTypes.Name)?.Value;
+    }
+
+    protected string? GetCurrentUserEmail()
+    {
+        return CurrentUser.FindFirst(ClaimTypes.Email)?.Value;
+    }
+
 }

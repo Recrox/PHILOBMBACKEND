@@ -57,5 +57,12 @@ public class AuthController : ControllerBase
         return Ok("This is an Admin-only endpoint.");
     }
 
+    [HttpGet("test-user-context")]
+    public IActionResult UserEndpoint()
+    {
+        var user = base.User;
+        return Ok(user);
+    }
+
 }
 

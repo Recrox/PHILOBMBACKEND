@@ -64,12 +64,7 @@ public class Startup
         services.AddCustomValidators();
         services.AddCustomControllers();
         services.AddCustomAuthentication(_configuration);
-
-        // Ajouter les services de limitation de débit
-        services.AddMemoryCache();
-        services.Configure<IpRateLimitOptions>(_configuration.GetSection("IpRateLimiting"));
-        services.AddSingleton<IRateLimitConfiguration, RateLimitConfiguration>();
-        services.AddInMemoryRateLimiting();
+        services.AddLimitedCallOnApi(_configuration);
     }
 
     private void AddLogs()

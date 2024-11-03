@@ -50,23 +50,29 @@ public class PhiloBMContext : DbContext
     private void SetAuditFields()
     {
         var entries = ChangeTracker.Entries<AuditableEntity>()
-        .Where(e => e.State == EntityState.Added || e.State == EntityState.Modified);
+            .Where(e => e.State == EntityState.Added || e.State == EntityState.Modified || e.State == EntityState.Deleted);
 
         foreach (var entry in entries)
         {
             var entity = entry.Entity;
 
-            if (entry.State == EntityState.Added)
+            switch (entry.State)
             {
-                //entity.CreatedDate = DateTime.UtcNow;
-                entity.CreatedDate = DateTime.UtcNow;
-                entity.CreatedBy = _currentUser;
-            }
-            else if (entry.State == EntityState.Modified)
-            {
-                //entity.ModifiedDate = DateTime.UtcNow;
-                entity.ModifiedDate = DateTime.UtcNow;
-                entity.ModifiedBy = _currentUser;
+                case EntityState.Added:
+                    entity.CreatedDate = DateTime.UtcNow;
+                    entity.CreatedBy = _currentUser;
+                    break;
+
+                case EntityState.Modified:
+                    entity.ModifiedDate = DateTime.UtcNow;
+                    entity.ModifiedBy = _currentUser;
+                    break;
+
+                case EntityState.Deleted when entity is SoftDeletableEntity softDeletableEntity:
+                    softDeletableEntity.DeletedOn = DateTime.UtcNow;
+                    softDeletableEntity.DeletedBy = _currentUser;
+                    entry.State = EntityState.Modified; // Marquer comme modifié pour un soft delete
+                    break;
             }
         }
     }

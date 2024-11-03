@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.OpenApi.Models;
+using AspNetCoreRateLimit;
 
 namespace PHILOBMBAPI.Extensions;
 
@@ -140,6 +141,16 @@ public static class ServiceCollectionExtensions
         services.AddDbContext<PhiloBMContext>(options =>
             options.UseSqlite($"Data Source={Constants.DbPath}",
             b => b.MigrationsAssembly(Assembly.GetExecutingAssembly().GetName().Name))); // Utiliser le nom de l'assembly actuel
+        return services;
+    }
+
+    public static IServiceCollection AddLimitedCallOnApi(this IServiceCollection services, IConfiguration configuration)
+    {
+        // Ajouter les services de limitation de débit
+        services.AddMemoryCache();
+        services.Configure<IpRateLimitOptions>(configuration.GetSection("IpRateLimiting"));
+        services.AddSingleton<IRateLimitConfiguration, RateLimitConfiguration>();
+        services.AddInMemoryRateLimiting();
         return services;
     }
 }
