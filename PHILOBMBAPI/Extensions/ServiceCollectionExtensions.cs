@@ -147,10 +147,10 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddLimitedCallOnApi(this IServiceCollection services, IConfiguration configuration)
     {
         // Ajouter les services de limitation de débit
-        services.AddMemoryCache();
-        services.Configure<IpRateLimitOptions>(configuration.GetSection("IpRateLimiting"));
-        services.AddSingleton<IRateLimitConfiguration, RateLimitConfiguration>();
-        services.AddInMemoryRateLimiting();
+        //services.AddMemoryCache();
+        //services.Configure<IpRateLimitOptions>(configuration.GetSection("IpRateLimiting"));
+        //services.AddSingleton<IRateLimitConfiguration, RateLimitConfiguration>();
+        //services.AddInMemoryRateLimiting();
         return services;
     }
 }
