@@ -36,7 +36,7 @@ public class Startup
         app.UseAuthentication(); // Ajoutez ceci pour l'authentification
         app.UseAuthorization();
         app.MapControllers();
-        app.UseIpRateLimiting();//eviter le spam de l'api
+        //app.UseIpRateLimiting();//eviter le spam de l'api
     }
 
     
