@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Localization;
+﻿using Hangfire;
+using Microsoft.AspNetCore.Localization;
+using Serilog;
 using System.Globalization;
 
 namespace PHILOBMBAPI.Extensions;
@@ -31,5 +33,19 @@ public static class WebApplicationExtensions
         //app.Services.AddSingleton(localTimeZone);
 
         return app;
+    }
+
+    public static WebApplication AddHangfire(this WebApplication app)
+    {
+        app.UseHangfireDashboard(); // Pour accéder à l'interface de Hangfire (facultatif)
+
+        // Démarrez le job de Hangfire
+        RecurringJob.AddOrUpdate("daily-job", () => YourMethodToExecute(), Cron.Daily(3, 0)); // S'exécute tous les jours à 3 heures du matin
+        return app;
+    }
+
+    private static void YourMethodToExecute()
+    {
+        Log.Information("Le job a été exécuté avec succès à {Time}", DateTime.UtcNow);
     }
 }

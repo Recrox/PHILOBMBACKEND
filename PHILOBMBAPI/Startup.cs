@@ -2,7 +2,7 @@
 using Serilog.Events;
 using Swashbuckle.AspNetCore.SwaggerUI;
 using PHILOBMBAPI.Extensions;
-using AspNetCoreRateLimit;
+using Hangfire;
 
 namespace PHILOBMBAPI;
 public class Startup
@@ -36,10 +36,13 @@ public class Startup
         app.UseAuthentication(); // Ajoutez ceci pour l'authentification
         app.UseAuthorization();
         app.MapControllers();
+
         //app.UseIpRateLimiting();//eviter le spam de l'api
+        //app.AddHangfire();
     }
 
     
+
 
     public void ConfigureServices(IServiceCollection services)
     {
@@ -59,13 +62,17 @@ public class Startup
         services.AddServices();
         services.AddRepositories();
         services.AddConfigurationSettings(_configuration);
-        services.AddDbContextRelative();
+        services.AddDbContextRelative(_configuration);
 
         services.AddCustomValidators();
         services.AddCustomControllers();
         services.AddCustomAuthentication(_configuration);
-        services.AddLimitedCallOnApi(_configuration);
+        //services.AddLimitedCallOnApi(_configuration);
+
+        //services.AddHangfire();
     }
+
+    
 
     private void AddLogs()
     {
